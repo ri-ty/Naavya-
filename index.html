@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Naavya Naari</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome CDN for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+  <header>
+    <!-- Search -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search...">
+      <button onclick="performSearch()"><i class="fas fa-search"></i></button>
+    </div>
+
+    <!-- Logo -->
+    <div class="logo">
+      <img src="logo.png" alt="Naavya Naari Logo">
+    </div>
+
+    <!-- Icons -->
+    <div class="icons">
+      <i class="fas fa-user"></i>
+      <i class="far fa-heart"></i>
+      <i class="fas fa-shopping-cart"></i>
+    </div>
+  </header>
+  <!-- Navigation Bar -->
+<nav class="main-nav">
+    <div class="nav-toggle" onclick="toggleMenu()">☰</div>
+    <ul id="navLinks">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">New Arrivals</a></li>
+      <li><a href="#">Suits</a></li>
+      <li><a href="#">Co-ord Sets</a></li>
+      <li><a href="#">Gown</a></li>
+    </ul>
+  </nav>
+  <div class="toolbar">
+    <div class="filter-button" onclick="toggleFilter()">☰ Filter</div>
+  
+    <div class="sort-dropdown">
+      <select id="sortSelect">
+        <option value="featured">Featured</option>
+        <option value="best">Best Selling</option>
+        <option value="az">Alphabetically, A-Z</option>
+        <option value="za">Alphabetically, Z-A</option>
+        <option value="priceLow">Price, low to high</option>
+        <option value="priceHigh">Price, high to low</option>
+        <option value="old">Date, old to new</option>
+        <option value="new">Date, new to old</option>
+      </select>
+    </div>
+  </div>
+  
+  <!-- FILTER PANEL -->
+  <div id="filterPanel" class="filter-panel">
+    <h3>Filter by</h3>
+    <div class="filter-group">
+      <label>Color:</label>
+      <select>
+        <option>Any</option>
+        <option>Red</option>
+        <option>Black</option>
+        <option>White</option>
+      </select>
+    </div>
+  
+    <div class="filter-group">
+      <label>Material:</label>
+      <select>
+        <option>Any</option>
+        <option>Cotton</option>
+        <option>Georgette</option>
+        <option>Silk</option>
+      </select>
+    </div>
+  
+    <span class="close-filter" onclick="toggleFilter()">×</span>
+</div>
+
+
+<section class="product-gallery">
+    <div class="product-card">
+        <div class="image-container">
+          <img src="images/p1.jpg" class="product-img front" alt="Front View">
+          <img src="images/p1back.jpg" class="product-img back" alt="Back View">
+        </div>
+        <h3>Lavender Kurta Set</h3>
+        <p class="price">₹1,399</p>
+      </div>
+  
+    <div class="product-card">
+      <img src="images/product2-front.jpg" class="product-img front" alt="Front View">
+      <img src="images/product2-back.jpg" class="product-img back" alt="Back View">
+      <h3>Rose Pink Kurta</h3>
+      <p>₹1,699</p>
+    </div>
+  
+    <div class="product-card">
+      <img src="images/product3-front.jpg" class="product-img front" alt="Front View">
+      <img src="images/product3-back.jpg" class="product-img back" alt="Back View">
+      <h3>Printed Blue Set</h3>
+      <p>₹1,599</p>
+    </div>
+    <div class="product-card">
+        <div class="image-container">
+          <img src="images/p2.jpg" class="product-img front" alt="Front View">
+          <img src="images/product4-back.jpg" class="product-img back" alt="Back View">
+        </div>
+        <h3>Mint Green Kurta</h3>
+        <p class="price">₹1,799</p>
+      </div>
+  </section>
+  
+  
+  
+  
+
+  <script src="script.js"></script>
+</body>
+<footer class="site-footer">
+    <div class="footer-columns">
+      <div class="footer-col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Store</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Policies</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Cancellation and Exchanges</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Service</h4>
+        <ul>
+          <li><a href="#">Order Tracking</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Exchange Request</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Office address</h4>
+        <p><strong>Location:</strong> F834,F835, 3rd Phase,<br>
+          Sitapura Industrial Area, Sitapura,<br> Jaipur- 302022</p>
+        <p><strong>Timing:</strong> Mon-Sat - 10.00 AM to 5.30 PM (IST)</p>
+        <p><strong>Whatsapp:</strong> +91-6377956762</p>
+        <p><strong>Email:</strong> order@stylejaipur.com</p>
+      </div>
+    </div>
+  
+    <!--<div class="footer-bottom">
+      <div class="payment-icons">
+        <img src="images/paytm.png" alt="Paytm">
+        <img src="images/phonepe.png" alt="PhonePe">
+        <img src="images/rupay.png" alt="RuPay">
+        <img src="images/visa.png" alt="Visa">
+        <img src="images/cod.png" alt="COD">
+      </div>-->
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </footer>
+  
+</html>
