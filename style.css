@@ -215,9 +215,12 @@
     border: 1px solid #eee;
     border-radius: 8px;
     overflow: hidden;
-    transition: transform 0.3s;
     padding-bottom: 15px;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
   }
+  
   
   .product-card:hover {
     transform: translateY(-5px);
@@ -227,18 +230,17 @@
     width: 100%;
     overflow: hidden;
   }
+  
   .product-img {
     width: 100%;
-    height: auto;
-    transition: opacity 0.4s ease;
     display: block;
+    transition: opacity 0.4s ease;
   }
   
   .product-img.back {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
+    top: 0;
+    left: 0;
     opacity: 0;
     z-index: 1;
   }
@@ -260,6 +262,14 @@
     font-size: 15px;
     color: #444;
     margin: 0;
+  }
+  .product-info {
+    padding: 10px 0;
+  }
+  
+  .product-info h3,
+  .product-info .price {
+    margin: 5px 0;
   }
   
   /* Responsive */
@@ -439,4 +449,42 @@
   padding: 20px;
   flex: 1;
   overflow-y: auto;
+}
+
+
+
+
+.like-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: white;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.3s ease;
+}
+
+.like-button i {
+  font-size: 16px;
+  color: #888;
+}
+
+.like-button.liked i {
+  color: red;
+}
+
+
+
+.wishlist-content h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }

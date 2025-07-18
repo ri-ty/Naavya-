@@ -20,14 +20,17 @@
 
     <!-- Logo -->
     <div class="logo">
-      <img src="logo.png" alt="Naavya Naari Logo">
+      <a href="index.html">
+        <img src="logo.png" alt="Naavya Naari Logo">
+      </a>
     </div>
+    
 
     <!-- Icons -->
     <div class="icons">
       <i class="fas fa-user"></i>
       <a href="wishlist.html"><i class="far fa-heart"></i></a>
-      <i class="fas fa-shopping-cart"></i>
+      <i class="fas fa-shopping-cart" onclick="toggleCart()"></i>
     </div>
   </header>
   <!-- Navigation Bar -->
@@ -85,19 +88,74 @@
 </div>
 
 
-<main class="centered-page">
-    <div class="center-box">
-      <h1>Wishlist</h1><br><br>
-      <h2>No products were added to the wishlist page.</h2>
-      <a href="index.html" class="back-button">← Back to Shopping</a>
-    </div>
+
+  
+  <main class="wishlist-content">
+    <h2>Your Wishlist</h2>
+    <div id="wishlistContainer" class="product-gallery"></div>
   </main>
   
 
+  
+  <div id="cartPanel" class="cart-panel">
+    <div class="cart-header">
+      <span class="cart-title">Your Cart</span>
+      <span class="cart-close" onclick="toggleCart()">×</span>
+    </div>
+    <div class="cart-body">
+      <p>Your cart is empty.</p>
+    </div>
+  </div>
+  
 
   
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('wishlistContainer');
+      let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
   
-
+      if (wishlist.length === 0) {
+        container.innerHTML = "<p>No products were added to the wishlist. <a href='index.html' class='back-button'>← Back to Shopping</a></p>";
+      } else {
+        wishlist.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'product-card';
+  
+          card.innerHTML = `
+            <div class="image-container">
+              <img src="${item.frontImg}" class="product-img front" alt="${item.title}">
+              <img src="${item.backImg}" class="product-img back" alt="${item.title}">
+              <div class="like-button liked"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="product-info">
+              <h3>${item.title}</h3>
+              <p class="price">${item.price}</p>
+            </div>
+          `;
+  
+          // 🟥 Heart click removes item
+          const heartBtn = card.querySelector('.like-button');
+          heartBtn.addEventListener('click', () => {
+            // Remove from DOM
+            card.remove();
+  
+            // Remove from localStorage
+            wishlist = wishlist.filter(w => w.title !== item.title);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+  
+            // If now empty, show fallback
+            if (wishlist.length === 0) {
+              container.innerHTML = "<p>No products were added to the wishlist. <a href='index.html' class='back-button'>← Back to Shopping</a></p>";
+            }
+          });
+  
+          container.appendChild(card);
+        });
+      }
+    });
+  </script>
+  
+  
   
 
 
