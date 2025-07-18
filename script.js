@@ -13,3 +13,10 @@ function performSearch() {
   function toggleFilter() {
     document.getElementById("filterPanel").classList.toggle("open");
   }
+
+
+  function toggleCart() {
+    const cartPanel = document.getElementById("cartPanel");
+    cartPanel.classList.toggle("open");
+  }
+  
