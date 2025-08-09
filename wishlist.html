@@ -1,218 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Naavya Naari</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
-  <!-- Font Awesome CDN for icons -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <meta charset="UTF-8" />
+  <title>Wishlist - Naavya Naari</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
   <header>
-    <!-- Search -->
     <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search...">
+      <input type="text" id="searchInput" placeholder="Search..." />
       <button onclick="performSearch()"><i class="fas fa-search"></i></button>
     </div>
 
-    <!-- Logo -->
     <div class="logo">
-      <a href="index.html">
-        <img src="logo.png" alt="Naavya Naari Logo">
-      </a>
+      <a href="index.html"><img src="logo.png" alt="Naavya Naari Logo" /></a>
     </div>
-    
 
-    <!-- Icons -->
     <div class="icons">
       <i class="fas fa-user"></i>
       <a href="wishlist.html"><i class="far fa-heart"></i></a>
       <i class="fas fa-shopping-cart" onclick="toggleCart()"></i>
     </div>
   </header>
-  <!-- Navigation Bar -->
-<nav class="main-nav">
+
+  <nav class="main-nav">
     <div class="nav-toggle" onclick="toggleMenu()">☰</div>
     <ul id="navLinks">
-      <li><a href="#">Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="#">New Arrivals</a></li>
-      <li><a href="#">Suits</a></li>
-      <li><a href="#">Co-ord Sets</a></li>
-      <li><a href="#">Gown</a></li>
     </ul>
   </nav>
-  <div class="toolbar">
-    <div class="filter-button" onclick="toggleFilter()">☰ Filter</div>
-  
-    <div class="sort-dropdown">
-      <select id="sortSelect">
-        <option value="featured">Featured</option>
-        <option value="best">Best Selling</option>
-        <option value="az">Alphabetically, A-Z</option>
-        <option value="za">Alphabetically, Z-A</option>
-        <option value="priceLow">Price, low to high</option>
-        <option value="priceHigh">Price, high to low</option>
-        <option value="old">Date, old to new</option>
-        <option value="new">Date, new to old</option>
-      </select>
-    </div>
-  </div>
-  
-  <!-- FILTER PANEL -->
-  <div id="filterPanel" class="filter-panel">
-    <h3>Filter by</h3>
-    <div class="filter-group">
-      <label>Color:</label>
-      <select>
-        <option>Any</option>
-        <option>Red</option>
-        <option>Black</option>
-        <option>White</option>
-      </select>
-    </div>
-  
-    <div class="filter-group">
-      <label>Material:</label>
-      <select>
-        <option>Any</option>
-        <option>Cotton</option>
-        <option>Georgette</option>
-        <option>Silk</option>
-      </select>
-    </div>
-  
-    <span class="close-filter" onclick="toggleFilter()">×</span>
-</div>
 
-
-
-  
   <main class="wishlist-content">
     <h2>Your Wishlist</h2>
     <div id="wishlistContainer" class="product-gallery"></div>
+    <div id="wishlistEmptyFallback" class="centered-page" style="display:none;">
+      <div class="center-box">
+        <p>No products were added to the wishlist.</p>
+        <a href="index.html" class="back-button">← Back to Shopping</a>
+      </div>
+    </div>
   </main>
-  
 
-  
-  <div id="cartPanel" class="cart-panel">
+  <!-- Cart panel included so cart works across pages -->
+  <div id="cartPanel" class="cart-panel" aria-hidden="true">
     <div class="cart-header">
       <span class="cart-title">Your Cart</span>
       <span class="cart-close" onclick="toggleCart()">×</span>
     </div>
-    <div class="cart-body">
-      <p>Your cart is empty.</p>
+    <div class="cart-body"></div>
+    <div class="cart-footer">
+      <div class="cart-total">Total: ₹<span id="cartTotal">0</span></div>
+      <div class="cart-actions">
+        <button id="checkoutBtn">Checkout</button>
+        <button id="clearCartBtn">Clear Cart</button>
+      </div>
     </div>
   </div>
-  
 
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const container = document.getElementById('wishlistContainer');
-      let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-  
-      if (wishlist.length === 0) {
-        container.innerHTML = "<p>No products were added to the wishlist. <a href='index.html' class='back-button'>← Back to Shopping</a></p>";
-      } else {
-        wishlist.forEach(item => {
-          const card = document.createElement('div');
-          card.className = 'product-card';
-  
-          card.innerHTML = `
-            <div class="image-container">
-              <img src="${item.frontImg}" class="product-img front" alt="${item.title}">
-              <img src="${item.backImg}" class="product-img back" alt="${item.title}">
-              <div class="like-button liked"><i class="fas fa-heart"></i></div>
-            </div>
-            <div class="product-info">
-              <h3>${item.title}</h3>
-              <p class="price">${item.price}</p>
-            </div>
-          `;
-  
-          // 🟥 Heart click removes item
-          const heartBtn = card.querySelector('.like-button');
-          heartBtn.addEventListener('click', () => {
-            // Remove from DOM
-            card.remove();
-  
-            // Remove from localStorage
-            wishlist = wishlist.filter(w => w.title !== item.title);
-            localStorage.setItem('wishlist', JSON.stringify(wishlist));
-  
-            // If now empty, show fallback
-            if (wishlist.length === 0) {
-              container.innerHTML = "<p>No products were added to the wishlist. <a href='index.html' class='back-button'>← Back to Shopping</a></p>";
-            }
-          });
-  
-          container.appendChild(card);
-        });
-      }
-    });
-  </script>
-  
-  
-  
-
-
-
-<script src="script.js"></script>
-</body>
-<footer class="site-footer">
+  <footer class="site-footer">
+    <!-- same footer as index -->
     <div class="footer-columns">
       <div class="footer-col">
         <h4>Info</h4>
         <ul>
           <li><a href="#">About Us</a></li>
-          <li><a href="#">Store</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Policies</h4>
         <ul>
           <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Shipping Policy</a></li>
-          <li><a href="#">Cancellation and Exchanges</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Customer Service</h4>
-        <ul>
-          <li><a href="#">Order Tracking</a></li>
-          <li><a href="#">Size Guide</a></li>
-          <li><a href="#">Exchange Request</a></li>
-        </ul>
       </div>
       <div class="footer-col">
         <h4>Office address</h4>
-        <p><strong>Location:</strong> F834,F835, 3rd Phase,<br>
-          Sitapura Industrial Area, Sitapura,<br> Jaipur- 302022</p>
-        <p><strong>Timing:</strong> Mon-Sat - 10.00 AM to 5.30 PM (IST)</p>
-        <p><strong>Whatsapp:</strong> +91-6377956762</p>
         <p><strong>Email:</strong> order@stylejaipur.com</p>
       </div>
     </div>
-  
-    <!--<div class="footer-bottom">
-      <div class="payment-icons">
-        <img src="images/paytm.png" alt="Paytm">
-        <img src="images/phonepe.png" alt="PhonePe">
-        <img src="images/rupay.png" alt="RuPay">
-        <img src="images/visa.png" alt="Visa">
-        <img src="images/cod.png" alt="COD">
-      </div>-->
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-linkedin"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
-      </div>
-    </div>
   </footer>
-  
+
+  <script src="script.js"></script>
+
+  <!-- Wishlist rendering logic (kept here for quicker page load) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('wishlistContainer');
+      let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+      if (wishlist.length === 0) {
+        document.getElementById('wishlistEmptyFallback').style.display = 'block';
+        container.style.display = 'none';
+        return;
+      }
+
+      wishlist.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <div class="image-container">
+            <img src="${item.frontImg}" class="product-img front" alt="${item.title}">
+            <img src="${item.backImg}" class="product-img back" alt="${item.title}">
+            <div class="like-button liked" role="button" aria-label="Remove from wishlist"><i class="fas fa-heart"></i></div>
+          </div>
+          <h3 class="product-title">${item.title}</h3>
+          <p class="price">${item.price}</p>
+          <div class="card-actions">
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        `;
+
+        // remove from wishlist when clicking heart
+        card.querySelector('.like-button').addEventListener('click', () => {
+          wishlist = wishlist.filter(w => w.title !== item.title);
+          localStorage.setItem('wishlist', JSON.stringify(wishlist));
+          card.remove();
+          if (wishlist.length === 0) {
+            document.getElementById('wishlistEmptyFallback').style.display = 'block';
+            container.style.display = 'none';
+          }
+        });
+
+        // add to cart from wishlist
+        card.querySelector('.add-to-cart').addEventListener('click', () => {
+          const cart = JSON.parse(localStorage.getItem('cart')) || [];
+          cart.push({ title: item.title, price: item.price, img: item.frontImg });
+          localStorage.setItem('cart', JSON.stringify(cart));
+          alert('Added to cart');
+          // update cart UI (script.js contains function)
+          updateCartUI?.();
+        });
+
+        container.appendChild(card);
+      });
+    });
+  </script>
+</body>
 </html>
+
