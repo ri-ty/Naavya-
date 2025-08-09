@@ -1,40 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Naavya Naari</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
-  <!-- Font Awesome CDN for icons -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
   <header>
     <!-- Search -->
     <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search...">
-      <button onclick="performSearch()"><i class="fas fa-search"></i></button>
+      <input type="text" id="searchInput" placeholder="Search products..." />
+      <button id="searchBtn"><i class="fas fa-search"></i></button>
     </div>
 
     <!-- Logo -->
     <div class="logo">
-      <a href="index.html">
-        <img src="logo.png" alt="Naavya Naari Logo">
-      </a>
+      <a href="index.html"><img src="logo.png" alt="Naavya Naari Logo" /></a>
     </div>
-    
 
     <!-- Icons -->
     <div class="icons">
-      <i class="fas fa-user"></i>
-      <a href="wishlist.html"><i class="far fa-heart"></i></a>
-      <i class="fas fa-shopping-cart" onclick="toggleCart()"></i>
+      <i class="fas fa-user" title="Account"></i>
+      <a href="wishlist.html" title="Wishlist"><i class="far fa-heart"></i></a>
+      <i class="fas fa-shopping-cart" id="cartIcon" onclick="toggleCart()" title="Cart"></i>
     </div>
   </header>
+
   <!-- Navigation Bar -->
-<nav class="main-nav">
+  <nav class="main-nav">
     <div class="nav-toggle" onclick="toggleMenu()">☰</div>
     <ul id="navLinks">
       <li><a href="#">Home</a></li>
@@ -44,115 +40,117 @@
       <li><a href="#">Gown</a></li>
     </ul>
   </nav>
+
   <div class="toolbar">
     <div class="filter-button" onclick="toggleFilter()">☰ Filter</div>
-  
     <div class="sort-dropdown">
-      <select id="sortSelect">
+      <select id="sortSelect" aria-label="Sort products">
         <option value="featured">Featured</option>
-        <option value="best">Best Selling</option>
-        <option value="az">Alphabetically, A-Z</option>
-        <option value="za">Alphabetically, Z-A</option>
+        <option value="az">Alphabetically, A–Z</option>
+        <option value="za">Alphabetically, Z–A</option>
         <option value="priceLow">Price, low to high</option>
         <option value="priceHigh">Price, high to low</option>
-        <option value="old">Date, old to new</option>
-        <option value="new">Date, new to old</option>
       </select>
     </div>
   </div>
-  
+
   <!-- FILTER PANEL -->
-  <div id="filterPanel" class="filter-panel">
+  <div id="filterPanel" class="filter-panel" aria-hidden="true">
     <h3>Filter by</h3>
     <div class="filter-group">
       <label>Color:</label>
-      <select>
-        <option>Any</option>
+      <select id="filterColor">
+        <option value="any">Any</option>
         <option>Red</option>
         <option>Black</option>
         <option>White</option>
+        <option>Lavender</option>
       </select>
     </div>
-  
+
     <div class="filter-group">
       <label>Material:</label>
-      <select>
-        <option>Any</option>
+      <select id="filterMaterial">
+        <option value="any">Any</option>
         <option>Cotton</option>
         <option>Georgette</option>
         <option>Silk</option>
       </select>
     </div>
-  
+
+    <button class="apply-filter" id="applyFilterBtn">Apply</button>
     <span class="close-filter" onclick="toggleFilter()">×</span>
-</div>
+  </div>
 
-
-<section class="product-gallery">
-    <div class="product-card">
+  <!-- PRODUCTS -->
+  <main>
+    <section id="productGallery" class="product-gallery">
+      <!-- Example product card (duplicate/edit as needed) -->
+      <div class="product-card" data-title="Lavender Kurta Set" data-price="1399" data-color="Lavender" data-material="Cotton" data-date="2025-07-01">
         <div class="image-container">
-          <img src="images/p1.jpg" class="product-img front" alt="Front View">
-          <img src="images/p1back.jpg" class="product-img back" alt="Back View">
-          <div class="like-button"><i class="far fa-heart"></i></div>
+          <img src="images/p1.jpg" class="product-img front" alt="Lavender Kurta - front" />
+          <img src="images/p1back.jpg" class="product-img back" alt="Lavender Kurta - back" />
+          <div class="like-button" role="button" aria-label="Add to wishlist"><i class="far fa-heart"></i></div>
         </div>
-        
-        <h3>Lavender Kurta Set</h3>
+        <h3 class="product-title">Lavender Kurta Set</h3>
         <p class="price">₹1,399</p>
+        <div class="card-actions">
+          <button class="add-to-cart">Add to Cart</button>
+          <button class="view-btn" onclick="location.href='wishlist.html'">View</button>
+        </div>
       </div>
-  
-      <div class="product-card"
-     data-title="Lavender Kurta Set"
-     data-price="₹1,399"
-     data-front="images/p1.jpg"
-     data-back="images/p1back.jpg">
 
+      <div class="product-card" data-title="Printed Blue Set" data-price="1599" data-color="Blue" data-material="Georgette" data-date="2025-06-22">
         <div class="image-container">
-          <img src="images/p1.jpg" class="product-img front" alt="Front View">
-          <img src="images/p1back.jpg" class="product-img back" alt="Back View">
-          <div class="like-button"><i class="far fa-heart"></i></div>
+          <img src="images/product3-front.jpg" class="product-img front" alt="Printed Blue - front" />
+          <img src="images/product3-back.jpg" class="product-img back" alt="Printed Blue - back" />
+          <div class="like-button" role="button" aria-label="Add to wishlist"><i class="far fa-heart"></i></div>
         </div>
-        <h3>Lavender Kurta Set</h3>
-        <p class="price">₹1,399</p>
+        <h3 class="product-title">Printed Blue Set</h3>
+        <p class="price">₹1,599</p>
+        <div class="card-actions">
+          <button class="add-to-cart">Add to Cart</button>
+          <button class="view-btn" onclick="location.href='wishlist.html'">View</button>
+        </div>
       </div>
-      
-    <div class="product-card">
-      <img src="images/product3-front.jpg" class="product-img front" alt="Front View">
-      <img src="images/product3-back.jpg" class="product-img back" alt="Back View">
-      <h3>Printed Blue Set</h3>
-      <p>₹1,599</p>
-    </div>
-    <div class="product-card">
+
+      <div class="product-card" data-title="Mint Green Kurta" data-price="1799" data-color="Green" data-material="Silk" data-date="2025-05-10">
         <div class="image-container">
-          <img src="images/p2.jpg" class="product-img front" alt="Front View">
-          <img src="images/product4-back.jpg" class="product-img back" alt="Back View">
+          <img src="images/p2.jpg" class="product-img front" alt="Mint Green - front" />
+          <img src="images/product4-back.jpg" class="product-img back" alt="Mint Green - back" />
+          <div class="like-button" role="button" aria-label="Add to wishlist"><i class="far fa-heart"></i></div>
         </div>
-        <h3>Mint Green Kurta</h3>
+        <h3 class="product-title">Mint Green Kurta</h3>
         <p class="price">₹1,799</p>
+        <div class="card-actions">
+          <button class="add-to-cart">Add to Cart</button>
+          <button class="view-btn" onclick="location.href='wishlist.html'">View</button>
+        </div>
       </div>
-  </section>
-  
 
-
+      <!-- Add more product cards here with same structure and data attributes -->
+    </section>
+  </main>
 
   <!-- CART PANEL -->
-<div id="cartPanel" class="cart-panel">
-  <div class="cart-header">
-    <span class="cart-title">Your Cart</span>
-    <span class="cart-close" onclick="toggleCart()">×</span>
+  <div id="cartPanel" class="cart-panel" aria-hidden="true">
+    <div class="cart-header">
+      <span class="cart-title">Your Cart</span>
+      <span class="cart-close" onclick="toggleCart()">×</span>
+    </div>
+    <div class="cart-body">
+      <!-- Populated dynamically -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">Total: ₹<span id="cartTotal">0</span></div>
+      <div class="cart-actions">
+        <button id="checkoutBtn">Checkout</button>
+        <button id="clearCartBtn">Clear Cart</button>
+      </div>
+    </div>
   </div>
-  <div class="cart-body">
-    <p>Your cart is empty.</p>
-    <!-- Later you can populate cart items here -->
-  </div>
-</div>
 
-  
-  
-  
-
-  <script src="script.js"></script>
-</body>
-<footer class="site-footer">
+  <footer class="site-footer">
     <div class="footer-columns">
       <div class="footer-col">
         <h4>Info</h4>
@@ -180,29 +178,21 @@
       </div>
       <div class="footer-col">
         <h4>Office address</h4>
-        <p><strong>Location:</strong> F834,F835, 3rd Phase,<br>
-          Sitapura Industrial Area, Sitapura,<br> Jaipur- 302022</p>
+        <p><strong>Location:</strong> F834,F835, 3rd Phase,<br> Sitapura Industrial Area, Sitapura,<br> Jaipur- 302022</p>
         <p><strong>Timing:</strong> Mon-Sat - 10.00 AM to 5.30 PM (IST)</p>
         <p><strong>Whatsapp:</strong> +91-6377956762</p>
         <p><strong>Email:</strong> order@stylejaipur.com</p>
       </div>
     </div>
-  
-    <!--<div class="footer-bottom">
-      <div class="payment-icons">
-        <img src="images/paytm.png" alt="Paytm">
-        <img src="images/phonepe.png" alt="PhonePe">
-        <img src="images/rupay.png" alt="RuPay">
-        <img src="images/visa.png" alt="Visa">
-        <img src="images/cod.png" alt="COD">
-      </div>-->
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-linkedin"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
-      </div>
+
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
     </div>
   </footer>
-  
+
+  <script src="script.js"></script>
+</body>
 </html>
